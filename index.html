@@ -2,10 +2,36 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta 
+    name="viewport" 
+    content="width=device-width, initial-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <!--<script scr="js/app/js" defer><script>-->
+    <link rel="stylesheet" href="css/normalize.css"/>
+    <link rel="stylesheet" href = "style.css"/>
     <title>Todolist</title>
 </head>
 <body>
-    
+    <div class="container">
+        <div class="todo-list">
+            <h1>Список задач</h1>
+            <div class="create-new-todo">
+                <input 
+                    type="text" 
+                    class="message"
+                    placeholder="Описание задачи"
+                    maxlength="100"
+                />
+                <button class="add">Добавить дело</button>
+            </div>
+
+            <div class="wrapper">
+                <ul class="todo"></ul>
+            </div>
+            
+            </div>
+        </div>
+    </div>
 </body>
 </html>
