@@ -43,4 +43,56 @@ function delTask() {
     })
 }
 
-// функция для
+// функция для переключения флага важности задачи
+function addImportant() {
+    // находим все кнопки с классом "important"
+    const importantButtons = document.querySelectorAll('.important-btn')
+    // пробегаемся по всем кнопкам
+    importantButtons.forEach((btn) => {
+        // вешаем обработчик клика на каждую кнопку 
+        btn.addEventListener('click', (event) => {
+        // полкчаем индекс задачи из data-атрибута
+        const index = event.target.dataset.index
+        // меняем флаг важности задачи
+        todoList[index].important = !todoList[index].important
+        localStorage.setItem('todo', JSON.stringify(todoList)) //Сохраняем массив в localStorage
+        displayMessages() //Отображаем задачи
+    })
+})
+}
+
+// функция для отображения всех хадач
+function displayMessages() {
+    // если массив задач пуст, показываем сообщение "задач нет"
+    if (!todoList.length) {
+        todo.innerHTML = "Задач нет!"
+        return
+    }
+    // строка в которую соберем html со всеми задачами
+    let displayMessage = ''
+    // перебираем все обьекты задач из массива todolist
+    todoList.forEach((item, i) => {
+        // формируем html-разметку для каждой задачи
+        displayMessage += `
+        <li>
+            <input type="checkbox" id="item_${i}" ${item.checked ? 'checked' : ''}>
+
+            <label for="item_${i}" class="${item.important ? 'important' : ''}">
+                ${item.todo}
+            </label>
+
+            <div>
+                <img class="important-btn" src="./icons/icon.png" alt="important">
+                <img class="delete" data-index="${i}" src="./icons/icon.png" alt="delete">
+            </div>
+        </li>
+        `
+    })
+    // записываем весь собранный html в элемент с id="todo"
+    todo.innerHTML = displayMessage
+    // включаем обработчики удаления для вновь созданных кнопок
+    delTask()
+    // включаем обработчики переключения важности
+    addImportant()
+}
+
