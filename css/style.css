@@ -42,7 +42,7 @@ input[type="text"]{
 }
 
 /*Стили для кнопки*/
-button:{
+button {
     outline: nine;/*убирает внешнюю обводку*/
     border: none;/*убирает границу кнопки*/
     margin-top: 20px;/*отступ сверху*/
