@@ -10,8 +10,9 @@ if (localStorage.getItem('todo')) {
 }
 
 // При клике на кнопку "Добавить" создаем новую задачу
-addButton.addEventListener('click', () => {
+function setTask() {
     if (!addMessage.value) return //Если в поле ввода нет текста, то выходим из функции
+    
     // Формируем обьект новой задачи
     let newTodo = {
         todo: addMessage.value, // теккст задачи
@@ -23,6 +24,15 @@ addButton.addEventListener('click', () => {
     localStorage.setItem('todo', JSON.stringify(todoList)) //Сохраняем массив в localStorage
     displayMessages() //Отображаем задачи
     addMessage.value = '' //Очищаем поле ввода
+}
+
+addButton.addEventListener('click', () => setTask()) //Вешаем обработчик на кнопку
+
+addMessage.addEventListener('keyup', (event) => {
+    if (event.key ==="Enter") {
+        event.preventDefault()
+        setTask() //Если нажата клавиша Enter, то вызываем функцию добавления задачи
+    }
 })
  
 // функция для удаления задачи
