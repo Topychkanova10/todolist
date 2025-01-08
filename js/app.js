@@ -81,9 +81,10 @@ function displayMessages() {
                 ${item.todo}
             </label>
 
-            <div>
-                <img class="important-btn" src="./icons/icon.png" alt="important">
-                <img class="delete" data-index="${i}" src="./icons/icon.png" alt="delete">
+            <div class="tools">
+                <img class="edit" data-index="${i}" src="./icons/edit.png" alt="edit">
+                <img class="delete" data-index="${i}" src="./icons/delete.png" alt="delete">
+                <img class="important-btn" data-index="${i}" src="./icons/important.png" alt="important">
             </div>
         </li>
         `

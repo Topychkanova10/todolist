@@ -7,12 +7,12 @@ body{
 .container{
     margin: 0 auto;/*центрирует контейнер по горизонтали*/
     padding-top: 50px;/*отступ сверху*/
+    max-width: 800px;
 }
 
 /*стили для списка задач*/
 
 .todo-list {
-    max-width: 500px;/*максимальная ширина контейнера*/
     display:block;/*блоковый элемент*/
     margin: 0 auto 100px;/*центрирует контейнер по горизонтали и добавляет отступ*/
     padding: 30px;/*отступ внутри контейнера*/
@@ -32,21 +32,29 @@ h1{
 
 /*Стили для блока с формой создания новой задачи*/
 .create-new-todo {
-    text-align: center;/*выравнивает текст по центру*/
+    display: flex;
+    flex-direction: column;
 }
 
 /*стили для текстового поля*/
 input[type="text"]{
-    width: 376px;/*устанавливает ширину поля для ввода*/
     padding: 10px;/*добавляет внутренни отступы*/
+}
+
+input[type="text"]:focus {
+    outline: none;/*добавляет внутренни отступы*/
+}
+
+input[type="text"],
+button.add {
+    flex: 1; /*одинаковая ширина*/
 }
 
 /*Стили для кнопки*/
 button {
-    outline: nine;/*убирает внешнюю обводку*/
+    outline: none;/*убирает внешнюю обводку*/
     border: none;/*убирает границу кнопки*/
     margin-top: 20px;/*отступ сверху*/
-    width: 400px;/*ширина*/
     padding: 10px;/*внутренние отступы*/
     cursor: pointer;/*изменяет курсор на показатель*/
     transition: 0.5s ease;/*плавное изменение цвета кнопки при переводе курсора*/
@@ -59,14 +67,25 @@ button:hover {/*изменяет цвет кнопки при наведения
     transition: 0.5s ease;/*плавно изменяет цвет кнопки при наведении курсора*/
 }
 
+.delete, .important-btn, .edit {
+    height: 20px;/*высота иконки*/
+    width: 20px;
+}
+
+.important {
+    font-weight: 600;
+    color: red;
+}
+
+
 /*стили для списка задач*/
 .todo {
-    padding-left: 0, /*убирает отступ слева*/
+    padding-left: 0; /*убирает отступ слева*/
+    text-align: center;
 }
 
 /*стили для кадого элемента списка задачи*/
 .todo li {
-    padding: 1em; /*отсутпы внутри*/
     list-style-type: none;/*убирает стандартные маркеры списка*/
     word-break: break-all; /*переносит длинные слова на новую строку*/
     display: flex; /*использует flexbox для распределения элементов*/
@@ -102,8 +121,9 @@ input[type=checkbox],
 label {
     display: inline-block; /*устанавливает inline блок для чекбокса и метки*/
     vertical-align: middle; /*центрирует чекбокс и метку по вертикали*/
-    margin: 5px;/*отступы*/
+    margin-right: 1em;/*отступы*/
     cursor: pointer;/*изменяет курсор на указатель*/
+    margin: 6px; /*отступы*/
 }
 
 /*стили для псевдоэлемента перед меткой (контейнер для чекбокса)*/
@@ -129,4 +149,44 @@ input[type='checkbox']:checked + label::before {
     border-width: 0 3px 3px 0;
     transform: rotate(45deg);
     margin: 0 15px 5px 5px;
+}
+
+.tools {
+    display: flex;
+    align-items: center;
+}
+
+@media (max-width: 375px) {
+    .container {
+        width: 276px;
+    }
+
+    h1{
+        margin-bottom: 10px;
+        font-size: 24px;
+        color: #000000;
+    }
+}
+
+@media (min-width: 376px) and (max-width: 575px) {
+    .container {
+        width: 356px;
+    }
+
+    h1{
+        margin-bottom: 15px;
+        font-size: 36px;
+        color: orange;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 1080px) {
+    .container {
+        width: 600px;
+    }
+
+    h1{
+        margin-bottom: 20px;
+        font-size: 36px;
+    }
 }
