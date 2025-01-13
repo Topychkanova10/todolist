@@ -42,13 +42,17 @@ function delTask() {
     // пробегаемся по всем кнопкам
     deleteButtons.forEach((btn) => {
         // вешаем обработчик клика на каждую кнопку 
-        btn.addEventListener('click', (event) => {
+            const newBtn = btn.cloneNode(true) //клонируем кнопку
+            btn.parentNode.replaceChild(newBtn, btn) //заменяем кнопку на клонированную
+            newBtn.addEventListener('click', (event) => {
             // полкчаем индекс задачи из data-атрибута
             const index = event.target.dataset.index
-            // удаляем задачу из массива по индексу
-            todoList.splice(index, 1) //Удаляем задачу из массива
-            localStorage.setItem('todo', JSON.stringify(todoList)) //Сохраняем массив в localStorage
-            displayMessages() //Отображаем задачи
+            if (todoList[index] !== undefined) {
+                // удаляем задачу из массива по индексу
+                todoList.splice(index, 1) //Удаляем задачу из массива
+                localStorage.setItem('todo', JSON.stringify(todoList)) //Сохраняем массив в localStorage
+                displayMessages() //Отображаем задачи
+            }
         })
     })
 }
@@ -57,18 +61,63 @@ function delTask() {
 function addImportant() {
     // находим все кнопки с классом "important"
     const importantButtons = document.querySelectorAll('.important-btn')
-    // пробегаемся по всем кнопкам
     importantButtons.forEach((btn) => {
+        const newBtn = btn.cloneNode(true) //клонируем кнопку
+        btn.parentNode.replaceChild(newBtn, btn) //заменяем кнопку на клонированную
         // вешаем обработчик клика на каждую кнопку 
-        btn.addEventListener('click', (event) => {
-        // полкчаем индекс задачи из data-атрибута
-        const index = event.target.dataset.index
-        // меняем флаг важности задачи
-        todoList[index].important = !todoList[index].important
-        localStorage.setItem('todo', JSON.stringify(todoList)) //Сохраняем массив в localStorage
-        displayMessages() //Отображаем задачи
+        newBtn.addEventListener('click', (event) => {
+            // полкчаем индекс задачи из data-атрибута
+            const index = event.target.dataset.index
+            // меняем флаг важности задачи
+            if (todoList[index] !== undefined) {
+                todoList[index].important = !todoList[index].important
+                localStorage.setItem('todo', JSON.stringify(todoList)) //Сохраняем массив в localStorage
+                displayMessages() //Отображаем задачи
+            }
+        })
     })
-})
+}
+
+function editTask() {
+    const editButtons = document.querySelectorAll('.edit')//находим все кнопки редактирования 
+    editButtons.forEach((btn) => {
+        const newBtn = btn.cloneNode(true) //клонируем кнопку
+        btn.parentNode.replaceChild(newBtn, btn) //заменяем кнопку на клонированную
+        newBtn.addEventListener('click', (event) => {
+            const index = event.target.dataset.index//получаем индекс текущей задачи из data-артибута
+            const taskElement = event.target.closest('li')//находим родительский элемент li для текущей задачи
+            const label = taskElement.querySelector('label')//находим элемент label внутри текущей задачи
+            if(taskElement.querySelector('.edit-input')) return
+            const input = document.createElement('input')//создаем новый элемент input
+            input.type = 'text'//устанавливаем тип элемента input в "text"
+            input.value = todoList[index].todo
+            input.className = 'edit-input'
+            
+            // временно скрываем label и показываем input
+            taskElement.insertBefore(input, label)
+            label.style.display = 'none'
+            input.focus();//устанавливаем фокус на элементе input
+            const handleSave = () => {
+                const newText = input.value.trim();
+                if (newText && label) {
+                    todoList[index].todo = newText
+                    label.textContent = newText
+                    localStorage.setItem('todo',  JSON.stringify(todoList))
+                } 
+
+                if (label && label.parentNode) label.style.display = ''
+                if (input.parentNode) input.remove()
+            }
+            // обработчик для сохранения изменений  при потере фокуса
+            input.addEventListener('blur', () => setTimeout(handleSave, 100))
+            // Обработчик для сохранения изменений при нажатии Enter
+            input.addEventListener('keyup', (event) => {
+                if (event.key === 'Enter') {
+                    handleSave()
+                }
+            })
+        })
+    })
 }
 
 // функция для отображения всех хадач
@@ -80,7 +129,7 @@ function displayMessages() {
     }
     // строка в которую соберем html со всеми задачами
     let displayMessage = ''
-    // перебираем все обьекты задач из массива todolist
+    // перебираем все обьекты задач из массива todoList
     todoList.forEach((item, i) => {
         // формируем html-разметку для каждой задачи
         displayMessage += `
@@ -105,5 +154,6 @@ function displayMessages() {
     delTask()
     // включаем обработчики переключения важности
     addImportant()
+    editTask()
 }
 
