@@ -120,6 +120,21 @@ function editTask() {
     })
 }
 
+function setCheck() {
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]'); //получаем все checkbox
+    checkboxes.forEach((checkbox) => {
+        const newCheckbox = checkbox.cloneNode(true)
+        checkbox.parentNode.replaceChild(newCheckbox, checkbox)
+        newCheckbox.addEventListener('change', (event) =>{
+            const index = event.target.id.split('_')[1]
+            if (todoList[index] !== undefined) {
+                todoList[index].checked = event.target.checked
+                localStorage.setItem('todo', JSON.stringify(todoList))
+            }
+        })
+    })
+}
+
 // функция для отображения всех хадач
 function displayMessages() {
     // если массив задач пуст, показываем сообщение "задач нет"
@@ -155,5 +170,10 @@ function displayMessages() {
     // включаем обработчики переключения важности
     addImportant()
     editTask()
+    setCheck()
 }
 
+// обработчик события правого клика на задаче
+todo.addEventListener('contextmenu', (event) => event.preventDefault())
+
+console.log("localStorage.getItem('todo')", localStorage.getItem('todo')) 

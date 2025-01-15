@@ -69,7 +69,7 @@ button:hover {/*изменяет цвет кнопки при наведения
 
 .delete, .important-btn, .edit {
     height: 20px;/*высота иконки*/
-    width: 20px;
+    width: 20px; /*ширина иконки*/
 }
 
 .important {
@@ -91,6 +91,28 @@ button:hover {/*изменяет цвет кнопки при наведения
     display: flex; /*использует flexbox для распределения элементов*/
     justify-content: space-between;/*размещает элементы на коцнах*/
     align-items: center; /*центирует элементы по вертикали*/
+    padding: 5px; /*отступы внутри элемента*/
+    margin-right: 1em; /*отступы справа*/
+}
+
+.edit-input {
+    width: 70%;
+    border: none;
+    outline: none;
+    background: #1ba39c;
+    display: inlibe-block;
+    vertical-align: middle;
+    padding: 5px;
+    margin: 6px 1em 6px 6px;
+    cursor: pointer;
+}
+
+input[type="checkbox"],
+label {
+    display: inline-block; /*устанавливает inline блок для чекбокса и метки*/
+    vertical-align: middle; /*центрирует чекбокс и метку по вертикали*/
+    cursor: pointer; /*изменяет курсор мыши на указатель*/
+    margin: 6px 1em 6px 6px;/*отступы*/
 }
 
 /*стили для разделителя между задачами*/
@@ -98,32 +120,10 @@ button:hover {/*изменяет цвет кнопки при наведения
     border-bottom: 1px solid #000; /*разделитель между задачами*/
 }
 
-/*стили для кнопки удаления*/
-.delete, .important-btn {
-    height: 20px;/*высота*/
-    width: 20px; /*ширина*/    
-}
-
-.important {
-    font-weight: 600;
-    color: red;
-}
-
 /*стили для скрытого чекбокса*/
 input[type=checkbox] {
     opacity: 0;/*скрывает чекбокс*/
     position: absolute;/*убирае его из потока документа*/
-}
-
-
-/*стили для чекбокса и метки*/
-input[type=checkbox],
-label {
-    display: inline-block; /*устанавливает inline блок для чекбокса и метки*/
-    vertical-align: middle; /*центрирует чекбокс и метку по вертикали*/
-    margin-right: 1em;/*отступы*/
-    cursor: pointer;/*изменяет курсор на указатель*/
-    margin: 6px; /*отступы*/
 }
 
 /*стили для псевдоэлемента перед меткой (контейнер для чекбокса)*/
